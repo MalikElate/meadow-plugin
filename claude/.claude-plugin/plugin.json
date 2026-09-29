@@ -11,7 +11,14 @@
   "homepage": "https://findmeadow.com",
   "repository": "https://github.com/MalikElate/meadow-plugin",
   "license": "MIT",
-  "keywords": ["meadow", "social media", "social publishing", "scheduling", "drafts"],
+  "privacyPolicyUrl": "https://findmeadow.com/privacy/",
+  "keywords": [
+    "meadow",
+    "social media",
+    "social publishing",
+    "scheduling",
+    "drafts"
+  ],
   "userConfig": {
     "meadow_api_key": {
       "type": "string",

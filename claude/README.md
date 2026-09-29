@@ -1,10 +1,8 @@
-# Meadow plugin
-
-![Meadow](assets/logo.png)
+# Meadow for Claude
 
 [Meadow](https://findmeadow.com) is a social publishing workspace. Connect your channels, create once, and schedule the right version of every post from one Meadow workspace. Meadow publishes to Instagram, TikTok, YouTube, Facebook, X, LinkedIn, Pinterest, Threads, Bluesky, Telegram, and Google Business.
 
-This plugin connects your AI agent to Meadow's MCP server so it can review your workspace and save new post drafts. It works with Cursor and Grok Build from the repository root. The Claude plugin (Claude Code, Cowork, and claude.ai) lives in the [`claude/`](claude/) folder.
+This plugin connects Claude to Meadow's MCP server so Claude can review your workspace and save new post drafts. It works in Claude Code, Cowork, and claude.ai.
 
 ## What it can do
 
@@ -21,7 +19,7 @@ The plugin never publishes, schedules, or deletes posts, and it doesn't connect 
 | Component | Purpose |
 | --- | --- |
 | `meadow` MCP server | Remote Streamable HTTP server at `https://findmeadow.com/mcp` with seven tools: `get_profile`, `list_projects`, `list_accounts`, `list_posts`, `get_post`, `create_draft`, and `get_analytics` |
-| `meadow` skill | Tells the agent how to pick a project, save drafts safely with an idempotency key, and read post statuses and analytics accurately |
+| `meadow` skill | Tells Claude how to pick a project, save drafts safely with an idempotency key, and read post statuses and analytics accurately |
 
 Every tool is annotated. Six are read-only; `create_draft` is additive and idempotent.
 
@@ -29,18 +27,17 @@ Every tool is annotated. Six are read-only; `create_draft` is additive and idemp
 
 1. Sign in to [Meadow](https://app.findmeadow.com) and open **Configuration > API Keys**.
 2. Select **Create API key** and copy the key. It starts with `br_live_` and is shown only once.
-3. Install the plugin and give it the key:
-   - **Claude**: install the plugin in [`claude/`](claude/). It asks for the key when you enable it and stores it in your system's secure credential store.
-   - **Cursor**: set the `MEADOW_API_KEY` variable under **Plugins > Configure**.
-   - **Grok Build**: set the `MEADOW_API_KEY` environment variable before starting Grok Build.
+3. Enable the plugin. Claude asks for the key, masks it as you type, and stores it in your system's secure credential store.
 
 To stop access, revoke the key in Meadow. The next request with that key is rejected.
 
 ## Network and data use
 
-The plugin makes requests to one endpoint, `https://findmeadow.com/mcp`, operated by Meadow. Each request sends your API key in the `Authorization` header and the tool arguments your agent chooses, such as a project ID or draft caption. The plugin contains no scripts or hooks and sends data nowhere else.
+The plugin makes requests to one endpoint, `https://findmeadow.com/mcp`, operated by Meadow. Each request sends the API key you entered in the `Authorization` header and the tool arguments Claude chooses, such as a project ID or draft caption. The plugin contains no scripts or hooks, reads nothing from your machine, and sends data nowhere else.
 
-Meadow handles that data under its [privacy policy](https://findmeadow.com/privacy/) and [terms of service](https://findmeadow.com/terms/).
+## Privacy policy
+
+Meadow handles the data this plugin sends under its [privacy policy](https://findmeadow.com/privacy/) and [terms of service](https://findmeadow.com/terms/).
 
 ## Support
 
