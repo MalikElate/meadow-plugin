@@ -1,0 +1,51 @@
+# Meadow plugin
+
+![Meadow](assets/logo.png)
+
+[Meadow](https://findmeadow.com) is a social publishing workspace. Connect your channels, create once, and schedule the right version of every post from one Meadow workspace. Meadow publishes to Instagram, TikTok, YouTube, Facebook, X, LinkedIn, Pinterest, Threads, Bluesky, Telegram, and Google Business.
+
+This plugin connects your AI agent to Meadow's MCP server so it can review your workspace and save new post drafts. It works with Claude (Claude Code, Cowork, and claude.ai), Cursor, and Grok Build.
+
+## What it can do
+
+- Identify the Meadow workspace your API key belongs to
+- List your projects and the social accounts connected to each one
+- Browse drafts, scheduled posts, and publishing history, and read a single post with its per-account delivery status
+- Read cached analytics totals for a project and each connected account
+- Save a new post as a draft for you to review in Meadow
+
+The plugin never publishes, schedules, or deletes posts, and it doesn't connect accounts or upload media. You do those in the Meadow app at [app.findmeadow.com](https://app.findmeadow.com).
+
+## What's included
+
+| Component | Purpose |
+| --- | --- |
+| `meadow` MCP server | Remote Streamable HTTP server at `https://findmeadow.com/mcp` with seven tools: `get_profile`, `list_projects`, `list_accounts`, `list_posts`, `get_post`, `create_draft`, and `get_analytics` |
+| `meadow` skill | Tells the agent how to pick a project, save drafts safely with an idempotency key, and read post statuses and analytics accurately |
+
+Every tool is annotated. Six are read-only; `create_draft` is additive and idempotent.
+
+## Setup
+
+1. Sign in to [Meadow](https://app.findmeadow.com) and open **Configuration > API Keys**.
+2. Select **Create API key** and copy the key. It starts with `br_live_` and is shown only once.
+3. Install the plugin and give it the key:
+   - **Claude**: the plugin asks for the key when you enable it and stores it in your system's secure credential store.
+   - **Cursor**: set the `MEADOW_API_KEY` variable under **Plugins > Configure**.
+   - **Grok Build**: set the `MEADOW_API_KEY` environment variable before starting Grok Build.
+
+To stop access, revoke the key in Meadow. The next request with that key is rejected.
+
+## Network and data use
+
+The plugin makes requests to one endpoint, `https://findmeadow.com/mcp`, operated by Meadow. Each request sends your API key in the `Authorization` header and the tool arguments your agent chooses, such as a project ID or draft caption. The plugin contains no scripts or hooks and sends data nowhere else.
+
+Meadow handles that data under its [privacy policy](https://findmeadow.com/privacy/) and [terms of service](https://findmeadow.com/terms/).
+
+## Support
+
+Email [hello@findmeadow.com](mailto:hello@findmeadow.com) or visit [findmeadow.com](https://findmeadow.com).
+
+## License
+
+[MIT](LICENSE) © 2026 WoodBark Software LLC

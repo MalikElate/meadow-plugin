@@ -1,0 +1,23 @@
+{
+  "name": "meadow",
+  "version": "1.0.0",
+  "description": "Review your Meadow social publishing workspace (projects, connected accounts, posts, and analytics) and save new post drafts for review.",
+  "author": {
+    "name": "WoodBark Software LLC",
+    "url": "https://findmeadow.com"
+  },
+  "homepage": "https://findmeadow.com",
+  "repository": "https://github.com/MalikElate/meadow-plugin",
+  "license": "MIT",
+  "keywords": ["meadow", "findmeadow", "social media", "social publishing", "drafts"],
+  "logo": "assets/logo.png",
+  "mcpServers": {
+    "meadow": {
+      "type": "http",
+      "url": "https://findmeadow.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${MEADOW_API_KEY}"
+      }
+    }
+  }
+}

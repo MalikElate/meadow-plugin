@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "meadow": {
+      "url": "https://findmeadow.com/mcp",
+      "headers": {
+        "Authorization": "Bearer ${MEADOW_API_KEY}"
+      }
+    }
+  }
+}

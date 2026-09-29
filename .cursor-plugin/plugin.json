@@ -1,0 +1,26 @@
+{
+  "name": "meadow",
+  "displayName": "Meadow",
+  "version": "1.0.0",
+  "description": "Review your Meadow social publishing workspace (projects, connected accounts, posts, and analytics) and save new post drafts for review.",
+  "author": {
+    "name": "WoodBark Software LLC",
+    "email": "hello@findmeadow.com"
+  },
+  "homepage": "https://findmeadow.com",
+  "repository": "https://github.com/MalikElate/meadow-plugin",
+  "license": "MIT",
+  "keywords": ["meadow", "social media", "social publishing", "scheduling", "drafts"],
+  "logo": "assets/logo.png",
+  "variables": {
+    "type": "object",
+    "properties": {
+      "MEADOW_API_KEY": {
+        "type": "string",
+        "title": "Meadow API key",
+        "description": "Create a key in Meadow under Configuration > API Keys. It starts with br_live_ and is shown only once."
+      }
+    },
+    "required": ["MEADOW_API_KEY"]
+  }
+}
