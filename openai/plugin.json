@@ -96,7 +96,8 @@
           ]
         },
         "commerce": false,
-        "commerce_description": "Meadow's plugin doesn't sell products or process payments. Meadow subscriptions are managed on findmeadow.com, not in ChatGPT."
+        "commerce_description": "Meadow's plugin doesn't sell products or process payments. Meadow subscriptions are managed on findmeadow.com, not in ChatGPT.",
+        "demo_recording_url": "https://github.com/MalikElate/meadow-plugin/releases/download/review-demo-2026-10-09/meadow-plugin-demo.mp4"
       },
       "publication": {
         "release_notes": "Adds media upload, post previews, and publishing or scheduling posts after the user confirms, alongside reading workspaces, accounts, posts and cached analytics and saving drafts. Includes the Meadow skill."
