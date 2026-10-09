@@ -1,0 +1,106 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "meadow",
+  "version": "1.1.0",
+  "description": "Review your Meadow social publishing workspace, upload media, save drafts, and publish or schedule posts you confirm to Instagram, TikTok, YouTube, X, LinkedIn, and more.",
+  "author": {
+    "name": "WoodBark Software LLC",
+    "email": "hello@findmeadow.com",
+    "url": "https://findmeadow.com"
+  },
+  "homepage": "https://findmeadow.com",
+  "repository": "https://github.com/MalikElate/meadow-plugin",
+  "license": "MIT",
+  "keywords": [
+    "meadow",
+    "social media scheduling",
+    "social publishing"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Meadow",
+        "shortDescription": "Schedule and publish posts",
+        "longDescription": "Meadow is a social media scheduling and publishing workspace. This plugin lets ChatGPT and Codex work in your existing Meadow projects: review your projects and connected social accounts, upload images, videos and documents, save drafts, check a post against each platform's rules, and publish now or schedule posts to Instagram, TikTok, YouTube, Facebook, X, LinkedIn, Pinterest, Threads, Bluesky, Telegram and Google Business. It also reads your post history, per-account delivery status and cached performance metrics.\n\nPublishing always waits for you to confirm the exact content, accounts and time, and ChatGPT asks you for platform privacy, audience and consent choices instead of choosing them. Posts are reported as queued until Meadow confirms they're live. A TikTok inbox transfer still needs you to finish posting in TikTok.\n\nYou need a Meadow account with connected social accounts. The plugin doesn't connect or remove social accounts, edit or cancel queued posts, delete posts, or refresh analytics; do those in the Meadow app at app.findmeadow.com.",
+        "developerName": "WoodBark Software LLC",
+        "category": "Productivity",
+        "capabilities": [
+          "Review workspaces and social accounts",
+          "Upload media",
+          "Save drafts",
+          "Preview destination requirements",
+          "Publish or schedule posts",
+          "Read post status and cached analytics"
+        ],
+        "websiteURL": "https://findmeadow.com",
+        "supportURL": "https://findmeadow.com/#faq",
+        "privacyPolicyURL": "https://findmeadow.com/privacy",
+        "termsOfServiceURL": "https://findmeadow.com/terms",
+        "defaultPrompt": [
+          "What's scheduled in Meadow this week?",
+          "Save a Meadow draft for my LinkedIn and X accounts.",
+          "How are my recent Meadow posts performing?"
+        ],
+        "brandColor": "#B85820",
+        "brandColorDark": "#E08946",
+        "composerIcon": "./assets/logo.png",
+        "logo": "./assets/logo.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List projects and connected accounts",
+              "prompt": "Which Meadow projects do I have, and which social accounts are connected to each?",
+              "tools_triggered": "list_projects, list_accounts",
+              "expected_behavior": "Lists the test workspace's projects and, for each, its connected social accounts with platform and status. Nothing is created or changed."
+            },
+            {
+              "description": "Save a draft without publishing",
+              "prompt": "Save a draft in Meadow for my Bluesky account: \"Behind the scenes of our studio setup today.\"",
+              "tools_triggered": "list_projects, list_accounts, create_draft",
+              "expected_behavior": "Saves one draft for the Bluesky account with that caption, says it was saved as a draft for review in Meadow, and doesn't say it was published or scheduled."
+            },
+            {
+              "description": "Report post status",
+              "prompt": "What's scheduled or recently published in Meadow, and did anything fail?",
+              "tools_triggered": "list_projects, list_posts, get_post",
+              "expected_behavior": "Summarizes recent posts newest first with their status, and reports per-account delivery outcomes, including any needs_attention errors, from the post data."
+            },
+            {
+              "description": "Read cached analytics",
+              "prompt": "How are my Meadow posts performing?",
+              "tools_triggered": "list_projects, get_analytics",
+              "expected_behavior": "Reports the project's cached totals and per-account figures, and says they're cached rather than refreshed from the platforms."
+            },
+            {
+              "description": "Publish after confirmation",
+              "prompt": "Post \"Hello from Meadow\" to my Bluesky account now.",
+              "tools_triggered": "list_projects, list_accounts, preview_post, publish_post",
+              "expected_behavior": "Checks the post with preview_post, shows the exact text, the Bluesky account and that it posts now, and asks for confirmation. Only after the user confirms does it call publish_post, then reports the post as queued until get_post shows it published."
+            }
+          ],
+          "negative": [
+            {
+              "description": "Connecting a social account isn't supported",
+              "prompt": "Connect my Instagram account to Meadow."
+            },
+            {
+              "description": "Deleting or cancelling posts isn't supported",
+              "prompt": "Delete all my scheduled posts in Meadow."
+            },
+            {
+              "description": "Another user's workspace isn't accessible",
+              "prompt": "Show me the analytics for my competitor's Meadow workspace."
+            }
+          ]
+        },
+        "commerce": false,
+        "commerce_description": "Meadow's plugin doesn't sell products or process payments. Meadow subscriptions are managed on findmeadow.com, not in ChatGPT."
+      },
+      "publication": {
+        "release_notes": "Adds media upload, post previews, and publishing or scheduling posts after the user confirms, alongside reading workspaces, accounts, posts and cached analytics and saving drafts. Includes the Meadow skill."
+      }
+    }
+  }
+}

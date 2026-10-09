@@ -1,0 +1,15 @@
+{
+  "name": "meadow",
+  "description": "The Meadow plugin for publishing and scheduling social posts from Claude Code.",
+  "owner": {
+    "name": "WoodBark Software LLC",
+    "email": "hello@findmeadow.com"
+  },
+  "plugins": [
+    {
+      "name": "meadow",
+      "source": "./claude",
+      "description": "Review your Meadow social publishing workspace, upload media, save drafts, and publish or schedule posts you confirm to Instagram, TikTok, YouTube, X, LinkedIn, and more."
+    }
+  ]
+}

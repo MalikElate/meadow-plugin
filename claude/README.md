@@ -2,26 +2,30 @@
 
 [Meadow](https://findmeadow.com) is a social publishing workspace. Connect your channels, create once, and schedule the right version of every post from one Meadow workspace. Meadow publishes to Instagram, TikTok, YouTube, Facebook, X, LinkedIn, Pinterest, Threads, Bluesky, Telegram, and Google Business.
 
-This plugin connects Claude to Meadow's MCP server so Claude can review your workspace and save new post drafts. It works in Claude Code, Cowork, and claude.ai.
+This plugin connects Claude to Meadow's MCP server so Claude can review your workspace, upload media, save drafts, and publish or schedule posts you confirm. It works in Claude Code, Cowork, and claude.ai.
 
 ## What it can do
 
-- Identify the Meadow workspace your API key belongs to
-- List your projects and the social accounts connected to each one
+- Identify your Meadow workspace, list its projects, and list the social accounts connected to each one
 - Browse drafts, scheduled posts, and publishing history, and read a single post with its per-account delivery status
 - Read cached analytics totals for a project and each connected account
-- Save a new post as a draft for you to review in Meadow
+- Upload images, videos, PDFs, Word and PowerPoint files to a project
+- Save a post as a draft for you to review in Meadow
+- Check a post against each selected platform's rules without publishing it
+- Publish a post now or schedule it, after you confirm the exact content, accounts and time
 
-The plugin never publishes, schedules, or deletes posts, and it doesn't connect accounts or upload media. You do those in the Meadow app at [app.findmeadow.com](https://app.findmeadow.com).
+Publishing posts publicly on your connected accounts. The bundled skill tells Claude to ask you for each platform's privacy, audience and consent choices instead of choosing them, to check the post with `preview_post` first, and to wait for your confirmation before it calls `publish_post` or `publish_draft`.
+
+The plugin doesn't connect or remove social accounts, edit or cancel queued posts, delete posts, or refresh analytics. You do those in the Meadow app at [app.findmeadow.com](https://app.findmeadow.com).
 
 ## What's included
 
 | Component | Purpose |
 | --- | --- |
-| `meadow` MCP server | Remote Streamable HTTP server at `https://findmeadow.com/mcp` with seven tools: `get_profile`, `list_projects`, `list_accounts`, `list_posts`, `get_post`, `create_draft`, and `get_analytics` |
-| `meadow` skill | Tells Claude how to pick a project, save drafts safely with an idempotency key, and read post statuses and analytics accurately |
+| `meadow` MCP server | Remote Streamable HTTP server at `https://findmeadow.com/mcp` with 13 tools. Read-only: `get_profile`, `list_projects`, `list_accounts`, `list_posts`, `get_post`, `get_analytics`, `get_account_options`, `preview_post`. Additive: `upload_media`, `create_upload_url`, `create_draft`. Publishing: `publish_post`, `publish_draft` |
+| `meadow` skill | Tells Claude how to pick a project, save drafts with an idempotency key, check and confirm a post before publishing, and read post statuses and analytics accurately |
 
-Every tool is annotated. Six are read-only; `create_draft` is additive and idempotent.
+Every tool is annotated. `publish_post` and `publish_draft` are marked as destructive (they post publicly) and idempotent: retrying with the same `requestId` returns the original post instead of posting twice.
 
 ## Setup
 
@@ -33,7 +37,7 @@ To stop access, revoke the key in Meadow. The next request with that key is reje
 
 ## Network and data use
 
-The plugin makes requests to one endpoint, `https://findmeadow.com/mcp`, operated by Meadow. Each request sends the API key you entered in the `Authorization` header and the tool arguments Claude chooses, such as a project ID or draft caption. The plugin contains no scripts or hooks, reads nothing from your machine, and sends data nowhere else.
+The plugin makes requests to one endpoint, `https://findmeadow.com/mcp`, operated by Meadow. Each request sends the API key you entered in the `Authorization` header and the tool arguments Claude chooses, such as a project ID, a caption, or a media file to upload. When you ask Claude to upload media from a link, Meadow's server downloads that link. Meadow then sends the posts you publish to the social platforms you selected. The plugin contains no scripts or hooks, reads nothing else from your machine, and sends data nowhere else.
 
 ## Privacy policy
 
